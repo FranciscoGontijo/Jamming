@@ -7,9 +7,9 @@ class Track extends React.Component {
     }
     renderAction () {
         if (this.props.isRemoval === false) {
-            return '+'
+            return <button className="Track-action">+</button>
         } else {
-            return '-'
+            return <button className="Track-action">-</button>
         };
     }
     render() {
@@ -19,7 +19,7 @@ class Track extends React.Component {
                     <h3></h3>
                     <p></p>
                 </div>
-                <button className="Track-action">{this.renderAction()}</button>
+                {this.renderAction()}
             </div>
         );
     }
