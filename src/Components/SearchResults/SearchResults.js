@@ -1,8 +1,8 @@
 import React from 'react';
-import { TrackList } from '../TrackList./TrackList';
+import TrackList from '../TrackList/TrackList';
 import './SearchResults.css';
 
-export class SearchResults extends React.Component {
+class SearchResults extends React.Component {
     render() {
         return (
             <div className="SearchResults">
@@ -12,3 +12,5 @@ export class SearchResults extends React.Component {
         );
     }
 };
+
+export default SearchResults;
