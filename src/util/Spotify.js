@@ -1,6 +1,6 @@
 let accessToken;
 const clientId = '---';
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://localhost:3000';
 
 const Spotify = {
     getAccessToken() {
@@ -26,25 +26,24 @@ const Spotify = {
 
     search(term) {
         const accessToken = Spotify.getAccessToken();
-        const endpoint = `/v1/search?type=track&q=${term}`
-        const baseUrl = 'https://api.spotify.com'
-        return fetch(`${baseUrl}${endpoint}`,
-            {
-                headers: { Authorization: `Bearer ${accessToken}` }
-            }).then(response => {
-                return response.json();
-            }).then(jsonResponse => {
-                if (!jsonResponse.tracks) {
-                    return [];
+        return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
                 }
-                return jsonResponse.tracks.items.map(track => ({
-                    id: track.id,
-                    name: track.name,
-                    artist: track.artists[0].name,
-                    album: track.album.name,
-                    uri: track.uri
-                }));
-            });
+        }).then(response => {
+            return response.json();
+        }).then(jsonResponse => {
+            if (!jsonResponse.tracks) {
+                return [];
+            }
+            return jsonResponse.tracks.items.map(track => ({
+                id: track.id,
+                name: track.name,
+                artist: track.artists[0].name,
+                album: track.album.name,
+                uri: track.uri
+            }));
+        });
     },
 
     savePlaylist(name, trackUris) {
@@ -69,11 +68,8 @@ const Spotify = {
                         headers: headers,
                         method: 'POST',
                         body: JSON.stringify({ uris: trackUris })
-                    }).then(response => response.json()
-                    ).then(jsonResponse => {
-                        
                     });
-                })
+                });
             });
     }
 };
